@@ -39,10 +39,11 @@
   [(nzVisible)]="modalVisible"
   nzTitle="¿Ir al carrito o continuar comprando?"
   nzCentered
-  nzOkText="Continuar comprando"
-  nzCancelText="Ir al carrito"
+  nzOkText="Ir al carrito"
+  nzCancelText="Continuar comprando"
   (nzOnCancel)="handleCancelMiddle()"
   (nzOnOk)="handleOkMiddle()"
+
 >
   <ng-container *nzModalContent>
     <p>Se añadido al carrito: <strong>{{ selectedProduct.name }}</strong></p>

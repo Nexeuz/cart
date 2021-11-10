@@ -25,6 +25,7 @@ import {
   setProductsCarts,
   updateSelectedProductsCarts,
 } from './../../redux/products-carts/products-cart.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit {
   products$: Observable<Product[]>;
   loadingBuy = false;
 
-  constructor(private afs: AngularFirestore, private store: Store<AppState>) {
+  constructor(private afs: AngularFirestore, private store: Store<AppState>, private router: Router) {
     this.productsCollection = this.afs.collection<Product>(PRODUCTS_COLLECTION);
     this.productCartCollection =
       this.afs.collection<ProductCart>(PRODUCTS_CARTS);
@@ -55,7 +56,7 @@ export class HomeComponent implements OnInit {
       .valueChanges({ idField: 'id' })
       .pipe(
         tap((it: Product[]) => {
-          const productAndLoading = it.map((it) => ({ ...it, loading: false }));
+          const productAndLoading = it.map((it) => ({ ...it, loading: false })); // add a flag to control product loading
           this.store.dispatch(setProducts({ products: productAndLoading }));
         })
       )
@@ -80,9 +81,7 @@ export class HomeComponent implements OnInit {
         .ref.where('product_id', '==', `${product.id}`)
         .where('cart_id', '==', `${currentCart.id}`)
         .get();
-      if (docRef.docs.length === 0) {
-        // there are not carts
-
+      if (docRef.docs.length === 0) { // there are not Selected carts, create
         const idDoc = this.afs.createId();
         this.afs
           .collection(PRODUCTS_CARTS)
@@ -93,7 +92,7 @@ export class HomeComponent implements OnInit {
             products: this.buildCartObject(idDoc, product, currentCart),
           })
         );
-      } else {
+      } else { // there are products selected update :)
         const ref = this.afs.doc<ProductCart>(
           `${PRODUCTS_CARTS}/${docRef.docs[0].id}`
         );
@@ -150,6 +149,7 @@ export class HomeComponent implements OnInit {
 
   handleOkMiddle(): void {
     this.modalVisible = false;
+    this.router.navigateByUrl('/cart');
   }
 
   handleCancelMiddle(): void {

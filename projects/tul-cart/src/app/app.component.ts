@@ -16,7 +16,12 @@ import {
 } from './util/name-collections';
 import { products } from './util/products';
 import { selectCart, setCarts } from './redux/carts/cart.actions';
-import { AppState, selectAllProductCartId, selectCurrentCart, selectCurrentProductCart } from './redux/index';
+import {
+  AppState,
+  selectAllProductCartId,
+  selectCurrentCart,
+  selectCurrentProductCart,
+} from './redux/index';
 import { ProductCart } from './interfaces/product-carts';
 import { map, scan, switchMap, tap } from 'rxjs/operators';
 import { setProductsCarts } from './redux/products-carts/products-cart.actions';
@@ -52,7 +57,7 @@ export class AppComponent implements OnInit {
     this.cartProducts$ = this.store.select(selectAllProductCartId).pipe(
       switchMap((arr) => {
         if (arr.length > 0) {
-          return from(arr).pipe(scan((acc, curr) => acc + curr.quantity, 0));
+          return from(arr).pipe(scan((acc, curr) => acc + curr.quantity, 0)); // count selected products
         } else {
           return of(0);
         }
@@ -65,22 +70,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(selectCurrentCart)
-    .subscribe(it => {
+    this.store.select(selectCurrentCart).subscribe((it) => {
       if (it) {
         this.afs
-        .collection<ProductCart>(PRODUCTS_CARTS, (ref) =>
-          ref.where(`cart_id`, '==', `${it.id}`)
-        )
-        .valueChanges()
-        .subscribe((docs) => {
-          this.store.dispatch(setProductsCarts({ products: docs }));
-        });
+          .collection<ProductCart>(PRODUCTS_CARTS, (ref) =>
+            ref.where(`cart_id`, '==', `${it.id}`)
+          )
+          .valueChanges()
+          .subscribe((docs) => {
+            this.store.dispatch(setProductsCarts({ products: docs }));
+          });
       }
-
-    })
-
-
+    });
     this.checkCurrentCart();
     this.cartCollection
       .valueChanges({ idField: 'id' })
@@ -102,19 +103,13 @@ export class AppComponent implements OnInit {
 
   async checkCurrentCart() {
     const currentCartKey = localStorage.getItem(CURRENT_CART_KEY);
-    const currentCart = localStorage.getItem(CURRENT_CART);
-    const currentObjectCart = currentCart
-      ? (JSON.parse(currentCart) as Cart)
-      : { status: 'pending', id: '' };
+
     if (currentCartKey === null) {
       this.firestoreService.addCollectionAndSaveLocalstorage();
     } else {
       this.store.dispatch(selectCart({ cartId: currentCartKey }));
-
     }
   }
-
-
 
   /**
    * Test function to create products faster :)
