@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "booyah-app": {
+      "hosting": {
+        "tul-cart": [
+          "booyah-app"
+        ]
+      }
+    }
+  }
+}

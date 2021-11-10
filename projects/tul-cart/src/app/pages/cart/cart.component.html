@@ -1,0 +1,34 @@
+<div class="cart-component">
+  <nz-steps class="cart-component__steps" [nzCurrent]="currentIndex">
+    <nz-step nzTitle="Productos seleccionados"> </nz-step>
+    <nz-step nzTitle="Autenticación"></nz-step>
+    <nz-step nzTitle="Generar orden" [nzIcon]="iconTemplate"></nz-step>
+    <ng-template #iconTemplate><i nz-icon nzType="smile"></i></ng-template>
+  </nz-steps>
+</div>
+
+<router-outlet></router-outlet>
+<div class="cart-component__button-container">
+  <button
+    [disabled]="currentIndex === 0"
+    (click)="previusIndex()"
+    nzSize="large"
+    nz-button
+    nzType="primary"
+  >
+    Atras
+    <i nz-icon nzType="left"></i>
+  </button>
+  <button
+    [disabled]="
+      (obsAllCartProducts$ | async)?.length === 0 || (currentIndex === 2 ) || (currentIndex === 1 && !(authState | async))
+    "
+    (click)="nextIndex()"
+    nzSize="large"
+    nz-button
+    nzType="primary"
+  >
+    Siguiente
+    <i nz-icon nzType="right"></i>
+  </button>
+</div>

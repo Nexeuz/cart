@@ -1,0 +1,25 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo"></div>
+    <ul nz-menu nzMode="horizontal" nzTheme="light" class="header-menu">
+      <li routerLink="" nz-menu-item>Inicio</li>
+      <li nz-menu-item>Camisas</li>
+      <li nz-menu-item>Pantalones</li>
+      <li routerLink="cart" [nzMatchRouterExact]="true" nz-menu-item>
+        <ng-container *ngIf="cartProducts$ | async as numb">
+          <nz-badge [nzCount]="numb"> </nz-badge>
+        </ng-container>
+        <i nz-icon nzType="shopping-cart"></i>
+      </li>
+
+
+      <li *ngIf="(authState$ | async)" (click)="signOut()"  nz-menu-item>
+          Cerrar sesión
+      </li>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+  <nz-footer>Test by Nicolás Falla ©2021</nz-footer>
+</nz-layout>

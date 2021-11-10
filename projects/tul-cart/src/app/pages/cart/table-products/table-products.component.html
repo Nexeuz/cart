@@ -1,0 +1,69 @@
+<div
+class="table-products-component"
+  [formGroup]="formGroup"
+  *ngIf="obsAllCartProducts$ | async as cartProducts"
+>
+  <nz-table
+    [nzFrontPagination]="false"
+    [nzLoading]="loadingTable"
+    #basicTable
+    [nzData]="cartProducts"
+  >
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Descripcion</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable?.data">
+        <td>
+          <img
+            class="table-products-component__table-image"
+            alt="product image"
+            [src]="data?.product?.image"
+          />
+        </td>
+        <td>
+          <h3>{{ data?.product?.name }}</h3>
+        </td>
+        <td>
+          <div class="table-products-component__table-quantity">
+            <button
+              (click)="decreaseQuantity(data)"
+              nz-button
+              nzSize="large"
+              nzType="default"
+            >
+              <i nz-icon nzType="left-circle"></i>
+            </button>
+            <input
+              [formControl]="data.formControl"
+              (keyup)="changeInput(data)"
+              type="number"
+              min="1"
+              nz-input
+            />
+            <button
+              nz-button
+              nzSize="large"
+              nzType="default"
+              (click)="increaseQuantity(data)"
+            >
+              <i nz-icon nzType="right-circle"></i>
+            </button>
+          </div>
+        </td>
+        <td>{{ data?.product?.description }}</td>
+        <td>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="deleteItem(data)">Eliminar</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+

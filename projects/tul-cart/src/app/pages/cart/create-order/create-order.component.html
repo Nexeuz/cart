@@ -1,0 +1,26 @@
+<div class="component-create-order">
+  <nz-card style="width:300px;" [nzBordered]="false" nzTitle="Datos de envío" >
+    <form class="component-create-order__form" [formGroup]="form">
+      <nz-input-group nzSearch nzSize="large" >
+        <input formControlName="name" type="text" nz-input placeholder="Escribe tu nombre" />
+      </nz-input-group>
+      <nz-input-group nzSearch nzSize="large" >
+        <input formControlName="lastName" type="text" nz-input placeholder="Escribe tu apellido" />
+      </nz-input-group>
+      <nz-input-group nzSearch nzSize="large" >
+        <input formControlName="nationalId" type="number" nz-input placeholder="Escribe tu numero de identificación" />
+      </nz-input-group>
+      <nz-input-group nzSearch nzSize="large" >
+        <input  formControlName="country" type="text" nz-input placeholder="Escribe tu país" />
+      </nz-input-group>
+      <nz-input-group nzSearch nzSize="large" >
+        <input  formControlName="city" type="text" nz-input placeholder="Escribe tu ciudad" />
+      </nz-input-group>
+      <nz-input-group nzSearch nzSize="large" >
+        <input  formControlName="address" type="text" nz-input placeholder="Escribe tu dirección" />
+      </nz-input-group>
+      <button nz-button [nzLoading]="loading" [nzSize]="'large'" (click)="generateOrder()" nzType="primary">Crear orden</button>
+
+    </form>
+  </nz-card>
+</div>

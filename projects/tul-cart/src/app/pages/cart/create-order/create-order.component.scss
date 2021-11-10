@@ -1,0 +1,12 @@
+
+.component-create-order
+{
+ width: 100%;
+ display: flex;
+ justify-content: center;
+  &__form {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+  }
+}

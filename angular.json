@@ -1,0 +1,143 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "tul-cart": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/tul-cart",
+      "sourceRoot": "projects/tul-cart/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/tul-cart",
+            "index": "projects/tul-cart/src/index.html",
+            "main": "projects/tul-cart/src/main.ts",
+            "polyfills": "projects/tul-cart/src/polyfills.ts",
+            "tsConfig": "projects/tul-cart/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/tul-cart/src/favicon.ico",
+              "projects/tul-cart/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "node_modules/ng-zorro-antd/ng-zorro-antd.compact.css",
+              "projects/tul-cart/src/theme.less",
+              "projects/tul-cart/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/tul-cart/src/environments/environment.ts",
+                  "with": "projects/tul-cart/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "tul-cart:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "tul-cart:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "tul-cart:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/tul-cart/src/test.ts",
+            "polyfills": "projects/tul-cart/src/polyfills.ts",
+            "tsConfig": "projects/tul-cart/tsconfig.spec.json",
+            "karmaConfig": "projects/tul-cart/karma.conf.js",
+            "assets": [
+              "projects/tul-cart/src/favicon.ico",
+              "projects/tul-cart/src/assets"
+            ],
+            "styles": [
+              "projects/tul-cart/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/tul-cart/tsconfig.app.json",
+              "projects/tul-cart/tsconfig.spec.json",
+              "projects/tul-cart/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/tul-cart/e2e/protractor.conf.js",
+            "devServerTarget": "tul-cart:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "tul-cart:serve:production"
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "5282703f-97b9-4ae4-a88a-213982603eaa",
+    "defaultCollection": "@ngrx/schematics"
+  },
+  "defaultProject": "tul-cart"
+}

@@ -1,0 +1,48 @@
+<div class="auth-component">
+  <div class="auth-component__card" nz-row [nzGutter]="8">
+    <div nz-col>
+      <nz-card nzTitle="Iniciar sesión">
+        <form
+          class="auth-component__form"
+          [formGroup]="form"
+        >
+          <input
+            zSize="large"
+            nz-input
+            type="email"
+            placeholder="Digita tu email"
+            formControlName="email"
+          />
+          <nz-input-group [nzSuffix]="suffixTemplate">
+            <input
+              zSize="large"
+              [type]="passwordVisible ? 'text' : 'password'"
+              nz-input
+              placeholder="Digita tu contraseña"
+              formControlName="password"
+            />
+          </nz-input-group>
+          <ng-template #suffixTemplate>
+            <i
+              nz-icon
+              [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+              (click)="passwordVisible = !passwordVisible"
+            ></i>
+          </ng-template>
+          <nz-alert
+          *ngIf="showAlert"
+          [nzBanner]="true"
+          nzType="error"
+          nzCloseable
+          [nzMessage]="error.code"
+          [nzDescription]="error.message"
+        ></nz-alert>
+          <div class="auth-component__form-button-actions">
+            <button (click)="loginUser()" [nzLoading]="loading" nz-button type="submit">Iniciar sesión</button>
+            <a routerLink="/cart/register">¿Aún no te has registrado? ¡pincha aqui!</a>
+          </div>
+        </form>
+      </nz-card>
+    </div>
+  </div>
+</div>

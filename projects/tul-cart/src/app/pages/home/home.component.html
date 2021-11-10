@@ -1,0 +1,52 @@
+<h1 class="home-component__title">Nuestros hermosos productos:</h1>
+
+<div class="home-component">
+  <ng-container *ngIf="(products$ | async) as products; else loandingCards">
+    <ng-container  *ngFor="let product of products">
+      <nz-card   class="home-component__card"  [nzActions]="[actionSetting]" nzHoverable [nzCover]="coverTemplate">
+        <nz-card-meta
+          [nzTitle]="product.name"
+          [nzDescription]="product.description"
+         ></nz-card-meta>
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img
+        class="home-component__card-image"
+          alt="example"
+          [src]="product.image"
+        />
+      </ng-template>
+      <ng-template #actionSetting>
+        <button [disabled]="product.loading" nz-button nzType="primary" nzSize="large" (click)="addToCurrentToCart(product)">
+          <i nz-icon nzType="shopping-cart"></i>
+          {{product.loading ? 'Añadiendo al carrito...' : 'Añadir al carrito'}}
+        </button>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+  <ng-template #loandingCards>
+    <nz-card *ngFor="let numb of [1,2,3,4,5,6,3,3,4,13]" [nzLoading]="true" class="home-component__card" nzHoverable >
+      <nz-card-meta
+        nzTitle="sdsdsdsdsdds"
+        nzDescription="dsdsdsdsds"
+      ></nz-card-meta>
+    </nz-card>
+
+  </ng-template>
+
+
+  <nz-modal
+  [(nzVisible)]="modalVisible"
+  nzTitle="¿Ir al carrito o continuar comprando?"
+  nzCentered
+  nzOkText="Continuar comprando"
+  nzCancelText="Ir al carrito"
+  (nzOnCancel)="handleCancelMiddle()"
+  (nzOnOk)="handleOkMiddle()"
+>
+  <ng-container *nzModalContent>
+    <p>Se añadido al carrito: <strong>{{ selectedProduct.name }}</strong></p>
+  </ng-container>
+</nz-modal>
+
+</div>

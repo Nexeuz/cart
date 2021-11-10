@@ -1,0 +1,23 @@
+.logo {
+  width: 80px;
+  height: 64px;
+  background-image: url('../assets/logo-tul-color.jpg');
+  background-repeat: no-repeat;
+  background-size: 80px 64px;
+
+  float: left;
+}
+
+.ant-menu-item .ant-menu-item-icon, .ant-menu-submenu-title .ant-menu-item-icon, .ant-menu-item .anticon, .ant-menu-submenu-title .anticon {
+  font-size: 25px;
+}
+nz-content {
+  padding: 50px 50px;
+  margin-top: 64px;
+}
+
+nz-header {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}

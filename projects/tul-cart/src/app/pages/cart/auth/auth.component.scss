@@ -1,0 +1,25 @@
+.auth-component {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &__card {
+    div {
+      min-width: 620px;
+
+
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__form-button-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+}

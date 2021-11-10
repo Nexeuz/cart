@@ -1,0 +1,24 @@
+nz-card {
+  display: flex;
+  flex-direction: column;
+}
+::ng-deep.ant-card-actions {
+  margin-top: auto;
+}
+
+
+.home-component
+{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+  &__card {
+    width: 240px
+  }
+  &__card-image {
+    max-height: 230px;
+  }
+}
