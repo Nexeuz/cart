@@ -17,7 +17,7 @@
         />
       </ng-template>
       <ng-template #actionSetting>
-        <button [disabled]="product.loading" nz-button nzType="primary" nzSize="large" (click)="addToCurrentToCart(product)">
+        <button class="home-component__card-button" [disabled]="product.loading" nz-button nzType="primary" nzSize="large" (click)="addToCurrentToCart(product)">
           <i nz-icon nzType="shopping-cart"></i>
           {{product.loading ? 'Añadiendo al carrito...' : 'Añadir al carrito'}}
         </button>
